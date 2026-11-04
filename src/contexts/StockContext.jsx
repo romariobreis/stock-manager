@@ -19,6 +19,10 @@ export function StockContextProvider({ children }) {
     return itemsArray
   })
 
+  const getItem = (itemId) => {
+    return items.find(item => item.id === +itemId)
+  }
+
   const addItem = (item) => {
     setItems(currentState => {
       const updatedItems = [item, ...currentState]
@@ -36,7 +40,7 @@ export function StockContextProvider({ children }) {
   }
 
   return (
-    <StockContext.Provider value={{ items, addItem, removeItem }}>
+    <StockContext.Provider value={{ items, getItem, addItem, removeItem }}>
       {children}
     </StockContext.Provider>
   )
