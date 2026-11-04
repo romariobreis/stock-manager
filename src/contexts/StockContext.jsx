@@ -27,8 +27,16 @@ export function StockContextProvider({ children }) {
     })
   }
 
+  const removeItem = (itemId) => {
+    setItems(currentState => {
+      const updatedItems = currentState.filter(item => item.id !== itemId)
+      localStorage.setItem("manager-stock", JSON.stringify(updatedItems))
+      return updatedItems
+    })
+  }
+
   return (
-    <StockContext.Provider value={{ items, addItem }}>
+    <StockContext.Provider value={{ items, addItem, removeItem }}>
       {children}
     </StockContext.Provider>
   )
