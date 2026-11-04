@@ -1,4 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom'
+import Home from './pages/Home'
+import RootLayout from './pages/RootLayout'
+import ItemsLayout from './pages/ItemsLayout'
+import ListItems from './pages/ListItems'
+import CreateItem from './pages/CreateItem'
+import ShowItem from './pages/ShowItem'
+import UpdateItem from './pages/UpdateItem'
 
 const router = createBrowserRouter([{
   path: "/",
