@@ -1,6 +1,7 @@
 import { useRef, useState } from "react"
 import StockItem, { CATEGORIES } from "../entities/StockItem"
 import useStock from "../hooks/useStock"
+import { useNavigate } from "react-router-dom"
 
 export default function ItemForm({ itemToUpdate }) {
   const defaultItem = {
@@ -12,8 +13,9 @@ export default function ItemForm({ itemToUpdate }) {
   }
 
   const [item, setItem] = useState(itemToUpdate ? itemToUpdate : defaultItem)
-  const { addItem } = useStock()
+  const { addItem, updateItem } = useStock()
   const inputRef = useRef(null)
+  const navigate = useNavigate()
 
   const handleChange = (ev) => {
     setItem((current) => ({ ...current, [ev.target.name]: ev.target.value }))
@@ -22,10 +24,16 @@ export default function ItemForm({ itemToUpdate }) {
   const handleSubmit = (ev) => {
     ev.preventDefault()
     try {
-      const stockItem = new StockItem(item)
-      addItem(stockItem)
-      setItem(defaultItem)
-      inputRef.current.focus()
+      if (itemToUpdate) {
+        updateItem(itemToUpdate.id, item)
+        alert(`${item.name} atualizado com sucesso.`)
+        navigate("/items")
+      } else {
+        const stockItem = new StockItem(item)
+        addItem(stockItem)
+        setItem(defaultItem)
+        inputRef.current.focus()
+      }
     } catch (error) {
       console.log(error)
     }
